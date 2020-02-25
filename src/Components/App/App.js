@@ -35,6 +35,7 @@ class App extends Component {
     }
   }
 
+  // La fonction debounce a pour rôle de limiter le nombre de requêtes inutiles envoyées à l'API 
   debounce = (callback, delay) => {
     let timer = null
     return function() {
@@ -49,7 +50,7 @@ class App extends Component {
 
 
   searchUser = async () => { 
-    // Si l'utilisateur n'a rien saisi
+    // Définition des valeurs par défaut si l'utilisateur n'a rien saisi
     let response;
     let errors = null;
     // selection elt div.result
@@ -75,12 +76,14 @@ class App extends Component {
     }
     
 
-    // 3 On utilise map pour afficher le résultat de tous les utilisateurs correspondant 
+    // 3 je prévois le cas où il n'y a aucun résultat trouvé  
     if( this.state.users.length == 0) {
       result.innerHTML = 'Aucun résultat';
     }
     else {
-      result.innerHTML = '';
+      result.innerHTML = ''; 
+
+      // 4 On utilise map pour afficher le résultat de tous les utilisateurs correspondant 
       this.state.users.map( function(user) {  
           if(user) { 
 
@@ -101,9 +104,7 @@ class App extends Component {
       }
   }
     
-
   render() {
-
   return (
     <div className="App">
       <Search searchUser={this.searchUser} debounce={this.debounce}/> 
